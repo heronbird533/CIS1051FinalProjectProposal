@@ -2,15 +2,15 @@
 
 #### Your name
 
-TODO
+Emily Heron
 
 #### Your section leader's name
 
-TODO
+Myself
 
 #### Project title
 
-TODO
+Dig Dug Recreation
 
 ***
 
