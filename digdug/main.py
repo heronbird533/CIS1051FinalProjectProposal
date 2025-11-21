@@ -1,6 +1,7 @@
 import pygame
 import random
 
+
 # Initialize Pygame
 pygame.init()
 
@@ -9,20 +10,23 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 TILE_SIZE = 40
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Dig Dig Game")
+pygame.display.set_caption("Upside Down- Dig Dig Game")
 
+#Adding background image
+background = pygame.image.load("images/strangerThings.jpg")
+background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 clock = pygame.time.Clock()
 
 # Colors
 # Dirt Layers
-L1 = (205, 133, 63)
-L2 = (160, 82, 45)
-L3 = (139, 69, 19)
-L4 = (110, 50, 15)
-WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
-RED = (255, 0, 0)
+L1 = (20, 20, 40)
+L2 = (15, 15, 30)
+L3 = (10, 10, 20)
+L4 = (5, 5, 10)
+BLUE = (80, 120, 255)
+RED = (255, 40, 60)
+SPORE_COLOR = (200, 220, 255)
 
 # Player
 player_x = 100
@@ -52,6 +56,19 @@ for row in range(ROWS):
     else:
         color = L4
     terrain.append([color for _ in range(COLS)]) # color = dirt, none = empty space
+
+#Spores
+spores = []
+for _ in range(50):
+    spores.append([
+        random.randint(0, SCREEN_WIDTH),
+        random.randint(0, SCREEN_HEIGHT), 
+        random.uniform(0.2, 1.0)
+    ])
+
+#Added fog
+fog = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+fog.fill((30, 30, 50, 100))
 
 #Can move to pygame function
 def can_move(x, y):
@@ -88,6 +105,7 @@ while running:
         player_x = new_x
         player_y = new_y
 
+    #Player digging
     tile_x = player_x // TILE_SIZE
     tile_y = player_y // TILE_SIZE
     terrain[tile_y][tile_x] = None #This removes the dirt
@@ -106,13 +124,14 @@ while running:
     if 0 <= e_tile_x < COLS and 0 <= e_tile_y < ROWS:
         terrain[e_tile_y][e_tile_x] = None
 
-    screen.fill((0,0,0))
+    ## if i figure out the background 
+    screen.blit(background, (0, 0))
 
     # Draw terrain
     for y in range(ROWS):
         for x in range(COLS):
             color = terrain[y][x]
-            if color is not None: 
+            if color: 
                 pygame.draw.rect(screen, color, (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
 
     # Draw player
@@ -120,6 +139,16 @@ while running:
 
     # Draw enemy
     screen.blit(enemy_image, (enemy_x, enemy_y))
+
+    # Draw spores
+    for spore in spores:
+        pygame.draw.circle(screen, SPORE_COLOR, (int(spore[0]), int(spore[1])), 2)
+        spore[1] += spore[2]  # Move down
+        if spore[1] > SCREEN_HEIGHT:
+            spore[0] = random.randint(0, SCREEN_WIDTH)
+            spore[1] = 0
+    #Fog 
+    screen.blit(fog, (0, 0))
 
     pygame.display.update()
     clock.tick(60)
