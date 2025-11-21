@@ -1,9 +1,17 @@
 import pygame
 import random
-
+# Delete if not needed
+#import os
+#print("Current working directory:", os.getcwd())
+#print("Files in this directory:", os.listdir())
+#print("Files in images folder:", os.listdir("images"))
 
 # Initialize Pygame
-pygame.init()
+#pygame.init()
+#pygame.mixer.init()
+#pygame.mixer.music.load("themesong.mp3")
+#pygame.mixer.music.play(-1)
+#pygame.mixer.music.set_volume(0.5)
 
 # Screen dimensions
 SCREEN_WIDTH = 800
@@ -12,9 +20,12 @@ TILE_SIZE = 40
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Upside Down- Dig Dig Game")
 
-#Adding background image
-background = pygame.image.load("images/strangerThings.jpg")
-background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+#Adding background image, alternate code found image wasn't loading
+#bg_path = "images/strangerThings.jpg"
+#if not os.path.exists(bg_path):
+    #raise FileNotFoundError("Cannot find background image at " + bg_path)
+#background = pygame.image.load(bg_path).convert()
+#background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 clock = pygame.time.Clock()
 
@@ -125,7 +136,7 @@ while running:
         terrain[e_tile_y][e_tile_x] = None
 
     ## if i figure out the background 
-    screen.blit(background, (0, 0))
+    #screen.blit(background, (0, 0))
 
     # Draw terrain
     for y in range(ROWS):
@@ -153,4 +164,5 @@ while running:
     pygame.display.update()
     clock.tick(60)
 
+#pygame.mixer.music.stop()
 pygame.quit()
