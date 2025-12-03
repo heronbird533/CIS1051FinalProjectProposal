@@ -31,6 +31,12 @@ clock = pygame.time.Clock()
 title_running = True 
 font = pygame.font.SysFont(None, 74)
 
+#Warning messages
+warning_messages = [ "HE'S HERE", "RUN", "DON'T LOOK BACK", "IT'S TOO LATE", "THE GATE IS OPEN", "THERE'S NO TIME"]
+warning_active = False
+warning_text = ""
+warning_end_timer = 0
+
 while title_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -56,8 +62,8 @@ while title_running:
 #background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #Original code background image
-background = pygame.image.load("images/strangerThings.jpg").convert()
-background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+#background = pygame.image.load("images/strangerThings.jpg").convert()
+#background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
 # Colors
@@ -287,7 +293,16 @@ while running:
     
     screen.fill((0, 0, 0))
 ## if i figure out the background 
-    screen.blit(background, (0, 0))
+    #screen.blit(background, (0, 0))
+
+    #Warming lights
+    if not warning_active and random.random() < 0.01:
+        warning_active = True
+        warning_text = random.choice(warning_messages)
+        warning_end_timer = time.time() + 3
+    #End warning
+    if warning_active and time.time() > warning_end_timer:
+        warning_active = False
 
     # Draw terrain
     for y in range(ROWS):
@@ -317,6 +332,15 @@ while running:
     font = pygame.font.SysFont(None, 36)
     screen.blit(font.render("Time: " + str(time_left), True, (255, 255, 255)), (10, 10))
     screen.blit(font.render("Lives: " + str(lives), True, (255, 255, 255)), (10, 40))
+
+
+    #Christmas lights effect
+    if warning_active: 
+        glow_colors = [(255, 0, 0), (0, 255, 0), (255, 255, 0), (0, 150, 255), (255, 100, 200)]
+        glow = random.choice(glow_colors)
+
+        warning_surface = font.render(warning_text, True, glow)
+        screen.blit(warning_surface, (SCREEN_WIDTH//2 - warning_surface.get_width()//   2, 50))
 
     pygame.display.update()
 
