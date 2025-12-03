@@ -56,8 +56,8 @@ while title_running:
 #background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #Original code background image
-#background = pygame.image.load("image/strangerThings.jpg").convert()
-#background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+background = pygame.image.load("images/strangerThings.jpg").convert()
+background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
 # Colors
@@ -287,7 +287,7 @@ while running:
     
     screen.fill((0, 0, 0))
 ## if i figure out the background 
-    #screen.blit(background, (0, 0))
+    screen.blit(background, (0, 0))
 
     # Draw terrain
     for y in range(ROWS):
@@ -319,7 +319,6 @@ while running:
     screen.blit(font.render("Lives: " + str(lives), True, (255, 255, 255)), (10, 40))
 
     pygame.display.update()
-    clock.tick(100)
 
 #pygame.mixer.music.stop()
 pygame.quit()
