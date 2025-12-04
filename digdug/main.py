@@ -2,20 +2,14 @@ import pygame
 import random
 import time
 
-# Delete if not needed
-#import os
-#print("Current working directory:", os.getcwd())
-#print("Files in this directory:", os.listdir())
-#print("Files in images folder:", os.listdir("images"))
-
 # Initialize Pygame
 pygame.init()
 
 #Music
-#pygame.mixer.init()
-#pygame.mixer.music.load("themesong.mp3")
-#pygame.mixer.music.play(-1)
-#pygame.mixer.music.set_volume(0.5)
+pygame.mixer.init()
+pygame.mixer.music.load("digdug/themesong.mp3")
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.5)
 
 
 # Screen dimensions
@@ -54,16 +48,10 @@ while title_running:
     screen.blit(line3, (SCREEN_WIDTH//2 - line3.get_width()//2, 300))
     pygame.display.update()
 
-#Adding background image, alternate code found image wasn't loading
-#bg_path = "images/strangerThings.jpg"
-#if not os.path.exists(bg_path):
-    #raise FileNotFoundError("Cannot find background image at " + bg_path)
-#background = pygame.image.load(bg_path).convert()
-#background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #Original code background image
-#background = pygame.image.load("images/strangerThings.jpg").convert()
-#background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+background = pygame.image.load("digdug/images/strangerThings.jpg").convert()
+background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
 # Colors
@@ -293,7 +281,7 @@ while running:
     
     screen.fill((0, 0, 0))
 ## if i figure out the background 
-    #screen.blit(background, (0, 0))
+    screen.blit(background, (0, 0))
 
     #Warming lights
     if not warning_active and random.random() < 0.01:
