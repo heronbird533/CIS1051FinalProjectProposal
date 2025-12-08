@@ -280,7 +280,6 @@ while running:
 
     
     screen.fill((0, 0, 0))
-## if i figure out the background 
     screen.blit(background, (0, 0))
 
     #Warming lights
